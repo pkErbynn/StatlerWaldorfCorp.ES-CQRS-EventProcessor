@@ -1,7 +1,7 @@
 #  ES-CQRS-EventProcessor
+Event Processor is an Event Sourcing model responsible for detecting nearby team members within some range of each other.
 
-In an Event Sourcing model, an event processor service typically lacks RESTful endpoints. 
-
+It has no APIs because an event processor service typically lacks RESTful endpoints. 
 Instead, it handles one or more inbound streams of events, processes these events, and records them in an event store. 
 
 This processing usually leads to the emission of additional outbound events.
