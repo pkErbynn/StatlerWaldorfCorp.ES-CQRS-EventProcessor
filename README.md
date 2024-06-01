@@ -1,0 +1,1 @@
+# StatlerWaldorfCorp.ES-CQRS-EventProcessor
