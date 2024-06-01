@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StatlerWaldorfCorp.EventProcessor.Location;
 
 namespace StatlerWaldorfCorp.EventProcessor.Events
 {
@@ -14,6 +15,12 @@ namespace StatlerWaldorfCorp.EventProcessor.Events
     /// </summary>
     public class ProximityDetector
     {
-        
+        public void DetectProximityEvents(
+            MemberLocationRecordedEvent memberLocationRecordedEvent,
+            ICollection<MemberLocation> memberLocations,
+            double distanceThreshold
+        ){
+            
+        }
     }
 }
