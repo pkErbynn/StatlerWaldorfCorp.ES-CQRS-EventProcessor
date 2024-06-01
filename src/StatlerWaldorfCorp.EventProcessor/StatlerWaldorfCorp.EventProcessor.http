@@ -1,0 +1,6 @@
+@StatlerWaldorfCorp.EventProcessor_HostAddress = http://localhost:5223
+
+GET {{StatlerWaldorfCorp.EventProcessor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
