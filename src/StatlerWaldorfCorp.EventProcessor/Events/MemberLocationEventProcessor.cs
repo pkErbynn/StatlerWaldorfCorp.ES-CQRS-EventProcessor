@@ -8,7 +8,12 @@ using StatlerWaldorfCorp.EventProcessor.Queues;
 namespace StatlerWaldorfCorp.EventProcessor.Events
 {
     /// <summary>
-    /// 
+    /// Responsible for:
+    /// 1. Subscribing to queue and receiving new messages from the event stream
+    /// 2. writing message to event store (not implemented)
+    /// 3. processing event stream to detect proximity
+    /// 4. stream processing results emited as messages to a queue
+    /// 5. submit state changes to cache/reality servcer as result of the steam processing
     /// </summary>
     public class MemberLocationEventProcessor : IEventProcessor
     {
