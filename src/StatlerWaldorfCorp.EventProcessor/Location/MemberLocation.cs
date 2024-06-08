@@ -15,7 +15,7 @@ namespace StatlerWaldorfCorp.EventProcessor.Location
             return JsonConvert.SerializeObject(this);
         }
 
-        public MemberLocation fromJsonStringToModel(string jsonString){
+        public static MemberLocation fromJsonStringToModel(string jsonString){
             return JsonConvert.DeserializeObject<MemberLocation>(jsonString);
         }
 
