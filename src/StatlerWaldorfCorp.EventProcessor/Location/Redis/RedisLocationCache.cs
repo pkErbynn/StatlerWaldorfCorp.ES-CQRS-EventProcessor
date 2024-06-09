@@ -29,7 +29,7 @@ namespace StatlerWaldorfCorp.EventProcessor.Location.Redis
             IDatabase db = connection.GetDatabase();
             RedisValue[] values = db.HashValues(teamId.ToString());
 
-            return ConvertRedisValueToLocationList(values);
+            return ConvertRedisValuesToLocationList(values);
         }
 
         public void Put(Guid teamId, MemberLocation memberLocation)
@@ -38,7 +38,7 @@ namespace StatlerWaldorfCorp.EventProcessor.Location.Redis
             db.HashSet(teamId.ToString(), memberLocation.MemberId.ToString(), memberLocation.toJsonString());   // { "teamId": { "MemberId1": "memberLocation1"  } } 
         }
 
-        private IList<MemberLocation> ConvertRedisValueToLocationList(RedisValue[] redisValues)
+        private IList<MemberLocation> ConvertRedisValuesToLocationList(RedisValue[] redisValues)
         {
             List<MemberLocation> memberLocations = new List<MemberLocation>();
             foreach (var value in redisValues)

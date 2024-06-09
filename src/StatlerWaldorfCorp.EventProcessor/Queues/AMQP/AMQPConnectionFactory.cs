@@ -15,7 +15,7 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
         public AMQPConnectionFactory(
             ILogger<AMQPConnectionFactory> logger,
             IOptions<AMQPOptions> options
-        ): base()
+        )
         {
             var connectionFactory = new ConnectionFactory();
 
@@ -27,6 +27,7 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
             connectionFactory.HostName = amqpOptions.HostName;
             connectionFactory.Uri = new Uri(amqpOptions.Uri);
 
-            logger.LogInformation($"AMQP Connection configured for URI : {amqpOptions.Uri}");        }
+            logger.LogInformation($"AMQP Connection configured for URI : {amqpOptions.Uri}");        
+        }
     }
 }

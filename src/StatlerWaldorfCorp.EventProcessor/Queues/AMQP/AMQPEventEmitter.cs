@@ -15,26 +15,25 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
         private ILogger<AMQPEventEmitter> logger;
         private QueueOptions queueOptions;
         private AMQPOptions amqpOptions;
-        // private IConnectionFactory connectionFactory;
         private ConnectionFactory connectionFactory;
 
 
         public AMQPEventEmitter(
             ILogger<AMQPEventEmitter> logger,
             IOptions<QueueOptions> qOptions,
-            IOptions<AMQPOptions> aOptions
-            // IConnectionFactory connectionFactory
+            IOptions<AMQPOptions> aOptions,
+            IConnectionFactory connectionFactory
             )
         {
             this.logger = logger;
             this.queueOptions = qOptions.Value;
             this.amqpOptions = aOptions.Value;
 
-            connectionFactory = new ConnectionFactory();
+            // connectionFactory = new ConnectionFactory();
             connectionFactory.UserName = amqpOptions.Username;
             connectionFactory.Password = amqpOptions.Password;
             connectionFactory.VirtualHost = amqpOptions.VirtualHost;
-            connectionFactory.HostName = amqpOptions.HostName;
+            ((ConnectionFactory)connectionFactory).HostName = amqpOptions.HostName;
             connectionFactory.Uri = new Uri(amqpOptions.Uri);
 
             logger.LogInformation($"Emitting events on queue {this.queueOptions.ProximityDetectedEventQueueName}");
