@@ -15,33 +15,33 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
         private ILogger<AMQPEventEmitter> logger;
         private QueueOptions queueOptions;
         private AMQPOptions amqpOptions;
-        private ConnectionFactory connectionFactory;
+        private AMQPConnectionFactory connectionFactory;
 
 
         public AMQPEventEmitter(
             ILogger<AMQPEventEmitter> logger,
             IOptions<QueueOptions> qOptions,
             IOptions<AMQPOptions> aOptions,
-            IConnectionFactory connectionFactory
-            )
+            AMQPConnectionFactory connectionFactory)
         {
             this.logger = logger;
             this.queueOptions = qOptions.Value;
             this.amqpOptions = aOptions.Value;
+            this.connectionFactory = connectionFactory;
 
             // connectionFactory = new ConnectionFactory();
-            connectionFactory.UserName = amqpOptions.Username;
-            connectionFactory.Password = amqpOptions.Password;
-            connectionFactory.VirtualHost = amqpOptions.VirtualHost;
-            ((ConnectionFactory)connectionFactory).HostName = amqpOptions.HostName;
-            connectionFactory.Uri = new Uri(amqpOptions.Uri);
+            // connectionFactory.UserName = amqpOptions.Username;
+            // connectionFactory.Password = amqpOptions.Password;
+            // connectionFactory.VirtualHost = amqpOptions.VirtualHost;
+            // ((ConnectionFactory)connectionFactory).HostName = amqpOptions.HostName;
+            // connectionFactory.Uri = new Uri(amqpOptions.Uri);
 
             logger.LogInformation($"Emitting events on queue {this.queueOptions.ProximityDetectedEventQueueName}");
         }
 
         public void EmitProximityDetectedEvent(ProximityDetectedEvent proximityDetectedEvent)
         {
-            using (IConnection conn = connectionFactory.CreateConnection())
+            using (IConnection conn = this.connectionFactory.GetConnection())
             {
                 using (IModel channel = conn.CreateModel())
                 {

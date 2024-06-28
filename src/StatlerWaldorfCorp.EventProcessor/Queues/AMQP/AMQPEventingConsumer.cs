@@ -10,7 +10,7 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
     // Wrapper to get to know Rabbit predefined events
     public class AMQPEventingConsumer: EventingBasicConsumer
     {
-        public AMQPEventingConsumer(ILogger<AMQPEventingConsumer> logger, IConnectionFactory factory): base(factory.CreateConnection().CreateModel())
+        public AMQPEventingConsumer(ILogger<AMQPEventingConsumer> logger, AMQPConnectionFactory factory): base(factory.GetConnection().CreateModel())
         {
         }
     }

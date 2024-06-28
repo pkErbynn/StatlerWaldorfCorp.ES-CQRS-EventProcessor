@@ -68,7 +68,6 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
             this.consumerTag = channel.BasicConsume(queueOptions.MemberLocationRecordedEventQueueName, false, consumer);
             this.logger.LogInformation("Subscribed to queue.");
         }
-
         public void Unsubscribe()
         {
             this.channel.BasicCancel(consumerTag);

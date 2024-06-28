@@ -10,6 +10,11 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
 {
     public class AMQPConnectionFactory
     {
+
+        private readonly ConnectionFactory connectionFactory;
+        private IConnection connection;
+        private readonly object _lock = new();
+
         protected AMQPOptions amqpOptions;
 
         public AMQPConnectionFactory(
@@ -17,7 +22,7 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
             IOptions<AMQPOptions> options
         )
         {
-            var connectionFactory = new ConnectionFactory();
+            this.connectionFactory = new ConnectionFactory();
 
             this.amqpOptions = options.Value;
 
@@ -28,6 +33,21 @@ namespace StatlerWaldorfCorp.EventProcessor.Queues.AMQP
             connectionFactory.Uri = new Uri(amqpOptions.Uri);
 
             logger.LogInformation($"AMQP Connection configured for URI : {amqpOptions.Uri}");        
+        }
+
+        public IConnection GetConnection()
+        {
+            if (this.connection == null || !this.connection.IsOpen)
+            {
+                lock (_lock)
+                {
+                    if (this.connection == null || !this.connection.IsOpen)
+                    {
+                        this.connection = this.connectionFactory.CreateConnection();
+                    }
+                }
+            }
+            return this.connection;
         }
     }
 }
